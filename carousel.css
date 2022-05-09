@@ -129,3 +129,55 @@
 .carousel-nav-link.selected {
   background-color: rgba(200, 200, 200, .7);
 }
+
+.carousel-nav-icon {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.carousel-nav-icon > img {
+  background-color: white;
+  border-radius: 50%;
+  padding: .5em;
+}
+
+/*
+ * On desktop the left and right icons should slide in
+ * from the side of the screen
+ */
+@media screen and (min-width: 900px) {
+  .carousel-nav-icon {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  .carousel-nav-icon > img {
+    transition: transform .3s ease 0s;
+  }
+
+  .carousel-nav-icon.top-left > img {
+    transform: translateX(-300%);
+  }
+  
+  .carousel-nav-icon.top-right > img {
+    transform: translateX(300%);
+  }
+  
+  .carousel-nav-icon:hover > img {
+    transform: translateX(0%);
+  }
+}
+
+/*
+ * On smaller mobile devices left and right icons
+ * should not appear at all
+ */
+@media screen and (max-width: 600px) {
+  #carousel-nav-icons {
+    display: none;
+  }
+}

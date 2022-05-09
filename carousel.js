@@ -14,6 +14,10 @@ for (const [i, _] of images.entries()) {
 
 
 
+const prev = document.getElementById('prev')
+const next = document.getElementById('next')
+
+
 let selected = 0
 
 /**
@@ -29,6 +33,17 @@ function select(index) {
 
   links[selected].classList.add('selected')
   carousel.style.transform = `translateX(-${selected * 100}%)`
+
+  if (selected === images.length - 1) {
+    next.style.display = 'none'
+  }
+  else if (selected === 0) {
+    prev.style.display = 'none'
+  }
+  else {
+    prev.style.display = 'flex'
+    next.style.display = 'flex'
+  }
 }
 
 // Select the first image in the carousel
@@ -77,4 +92,19 @@ carousel.addEventListener('touchend', function (e) {
   if (x_diff > 0 && selected < images.length - 1) {
     return select(selected+1)
   }
+})
+
+prev.addEventListener('click', function () {
+  if (selected === 0) {
+    return
+  }
+  select(selected-1)
+})
+
+
+next.addEventListener('click', function () {
+  if (selected === images.length - 1) {
+    return
+  }
+  select(selected+1)  
 })
