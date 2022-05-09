@@ -67,4 +67,4 @@ document.addEventListener('scroll', function () {
   scroll_timeout_handle = setTimeout(() => {
     scroll_to_view(most_visible_view)
   }, 50);
-})
+}, { passive: true })

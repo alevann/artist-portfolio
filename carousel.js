@@ -60,7 +60,7 @@ carousel.addEventListener('touchstart', function (e) {
 
   start_x = touch.screenX
   start_y = touch.screenY
-})
+}, { passive: true })
 
 carousel.addEventListener('touchend', function (e) {
   const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent
