@@ -1,0 +1,97 @@
+#logo-view {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+#socials {
+  min-height: 5%;
+  max-height: 5%;
+  padding-top: 1em;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+}
+
+
+.social-link {
+  aspect-ratio: 1;
+}
+
+/*
+ * On desktop apply a simple scaling animation
+ * to the hovered link to make it stand out
+ */
+@media screen and (min-width: 900px) {
+  .social-link {
+    transition: transform .2s ease 0s;
+  }
+
+  .social-link:hover {
+    transform: scale(1.2);
+  }
+}
+
+
+.social-tag {
+  position: absolute;
+  visibility: hidden;
+}
+
+/*
+ * Only apply styling to tags on desktop
+ * since on mobile they'll be permanently hidden
+ */
+@media screen and (min-width: 900px) {
+  .social-tag {
+    font-size: small;
+    font-weight: bold;
+    white-space: nowrap;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-top: .3rem;
+  }
+  
+  .social-link:hover > .social-tag {
+    visibility: visible;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .social-tag {
+    display: none;
+  }
+}
+
+
+#logo {
+  max-height: 35%;
+}
+
+@media screen and (max-width: 600px) {
+  #logo {
+    max-height: 20%;
+  }
+}
+
+
+#logo-view-scroll {
+  display: flex;
+  justify-content: center;
+  max-height: 10%;
+}
+
+/* 
+ * On desktop only add a slight animation 
+ * to the background color on mouse hover 
+ */
+@media screen and (min-width: 900px) {
+  #logo-view-scroll {
+    transition: background-color .5s ease 0s;
+  }
+
+  #logo-view-scroll:hover {
+    background-color: rgba(0, 0, 0, .1);
+  }
+}
+
