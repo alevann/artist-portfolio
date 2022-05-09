@@ -27,7 +27,6 @@ a {
  */
  
 html {
-  overflow-x: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -157,5 +156,94 @@ html::-webkit-scrollbar {
 
   #logo-view-scroll:hover {
     background-color: rgba(0, 0, 0, .1);
+  }
+}
+
+
+/*
+ * Carousel View
+ */
+
+ #carousel-view {
+  background-color: bisque;
+  overflow-x: hidden;
+}
+
+
+#carousel {
+  display: flex;
+  flex-flow: row nowrap;
+  transition: transform 1.5s ease 0s;
+}
+
+@media screen and (min-width: 900px) {
+  #carousel {
+    transition: transform 1s ease-in 0s;
+  }
+}
+
+
+/*
+ * Images in carousel should fill the entire area
+ */
+#carousel > .carousel-image-container {
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+#carousel > .carousel-image-container > .carousel-image {
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+
+.carousel-image-container {
+  overflow: hidden;
+  position: relative;
+}
+
+
+.carousel-image {
+  object-fit: cover;
+}
+
+
+.carousel-image-description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 2em;
+  padding: 1rem;
+  color: white;
+  background-color: rgba(0, 0, 0, .7);
+  border-radius: 5px;
+}
+
+.carousel-image-title {
+  font-size: 32px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.carousel-image-subtitle {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 900px) {
+  .carousel-image-description {
+    padding: .5rem;
+    margin: 1em;
+  }
+
+  .carousel-image-title {
+    font-size: 18px;
+  }
+
+  .carousel-image-subtitle {
+    font-size: 16px;
   }
 }
