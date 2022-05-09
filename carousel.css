@@ -114,6 +114,7 @@
   flex-flow: row nowrap;
   justify-content: center;
   margin: 2em;
+  margin-left: 0 !important;
   gap: 1em;
 }
 
