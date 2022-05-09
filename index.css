@@ -100,7 +100,7 @@ html::-webkit-scrollbar {
 
 .social-tag {
   position: absolute;
-  display: none;
+  visibility: hidden;
 }
 
 /*
@@ -109,7 +109,6 @@ html::-webkit-scrollbar {
  */
 @media screen and (min-width: 900px) {
   .social-tag {
-    display: initial;
     font-size: small;
     font-weight: bold;
     white-space: nowrap;
@@ -120,6 +119,12 @@ html::-webkit-scrollbar {
   
   .social-link:hover > .social-tag {
     visibility: visible;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .social-tag {
+    display: none;
   }
 }
 
