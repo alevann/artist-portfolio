@@ -149,7 +149,7 @@
  * On desktop the left and right icons should slide in
  * from the side of the screen
  */
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1200px) {
   .carousel-nav-icon {
     padding-left: 2em;
     padding-right: 2em;
@@ -177,6 +177,12 @@
  * should not appear at all
  */
 @media screen and (max-width: 600px) {
+  #carousel-nav-icons {
+    display: none;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 1000px) {
   #carousel-nav-icons {
     display: none;
   }
