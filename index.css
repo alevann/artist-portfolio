@@ -3,9 +3,9 @@
   margin: 0;
 }
 
-body {
-  width: 100vw;
-  height: 100vh;
+html, body {
+  width: 100%;
+  height: 100%;
 }
 
 
@@ -100,7 +100,7 @@ html::-webkit-scrollbar {
 
 .social-tag {
   position: absolute;
-  visibility: hidden;
+  display: none;
 }
 
 /*
@@ -109,6 +109,7 @@ html::-webkit-scrollbar {
  */
 @media screen and (min-width: 900px) {
   .social-tag {
+    display: initial;
     font-size: small;
     font-weight: bold;
     white-space: nowrap;
