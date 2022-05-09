@@ -177,7 +177,7 @@ html::-webkit-scrollbar {
   transition: transform 1.5s ease 0s;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 900px) {
   #carousel {
     transition: transform 1s ease-in 0s;
   }
@@ -239,6 +239,21 @@ html::-webkit-scrollbar {
 
 @media screen and (max-width: 900px) {
   .carousel-image-description {
+    padding: 1rem;
+    margin: 2em;
+  }
+
+  .carousel-image-title {
+    font-size: 24px;
+  }
+
+  .carousel-image-subtitle {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .carousel-image-description {
     padding: .5rem;
     margin: 1em;
   }
@@ -277,5 +292,5 @@ html::-webkit-scrollbar {
 }
 
 .carousel-nav-link.selected {
-  background-color: rgba(255, 255, 255, .7);
+  background-color: rgba(200, 200, 200, .7);
 }
