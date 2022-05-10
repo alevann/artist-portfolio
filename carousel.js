@@ -3,6 +3,8 @@ const nav = document.getElementById('carousel-nav')
 const carousel = document.getElementById('carousel')
 
 
+// Contains the HTML elements of the small black boxes 
+// that appear at the bottom of the carousel
 const links = []
 
 for (const [i, _] of images.entries()) {
@@ -27,13 +29,16 @@ let selected = 0
  * @param {number} index the index of the image to select
  */
 function select(index) {
+  // Remove highlight from current link
   links[selected].classList.remove('selected')
   
   selected = index
 
+  // Add highlight to newly selected link and move the carousel
   links[selected].classList.add('selected')
   carousel.style.transform = `translateX(-${selected * 100}%)`
 
+  // Hide/show the next/prev arrows
   if (selected === images.length - 1) {
     next.style.display = 'none'
   }
@@ -94,13 +99,13 @@ carousel.addEventListener('touchend', function (e) {
   }
 })
 
+
 prev.addEventListener('click', function () {
   if (selected === 0) {
     return
   }
   select(selected-1)
 })
-
 
 next.addEventListener('click', function () {
   if (selected === images.length - 1) {
