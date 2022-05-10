@@ -1,7 +1,7 @@
 #carousel-view {
   position: relative;
   background-color: bisque;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 
@@ -186,4 +186,17 @@
   #carousel-nav-icons {
     display: none;
   }
+}
+
+#carousel-popup {
+  display: none;
+  background-color: rgba(0, 0, 0, .7);
+}
+
+#carousel-popup.show {
+  display: block;
+}
+
+#carousel-popup > img {
+  object-fit: contain;
 }

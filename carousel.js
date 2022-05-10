@@ -55,6 +55,31 @@ function select(index) {
 select(0)
 
 
+/*
+ * Manage the pop-up that appears when
+ * selecting an image in the carousel
+ */
+const popup_div = document.getElementById('carousel-popup')
+popup_div.onclick = () => popup_div.classList.remove('show')
+
+const popup_img = popup_div.children[0]
+
+const image_on_click = () => {
+  popup_div.classList.add('show')
+  // Use the selected image and not the image that has been clicked
+  // to prevent a missmatch when someone clicks while the carousel
+  // is moving
+  popup_img.src = images[selected].src
+  popup_img.alt = images[selected].alt
+}
+
+for (const image of images) {
+  image.onclick = image_on_click
+}
+
+
+
+
 
 let start_x = 0
 let start_y = 0
