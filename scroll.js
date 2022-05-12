@@ -15,12 +15,20 @@ const logo_view = document.getElementById('logo-view')
     inline: 'nearest',
     behavior: 'smooth' 
   })
+
+  // On mobile sometimes the browser's address bar disappears when scrolling
+  // this causes more space to be visible than usual, meaning the scroll icon
+  // will still be visible. Since it's a user setting it cannot be helped,
+  // so to work around it the scroll icon is rotated to make it at least usable
+  const icon_rotation = most_visible_view === logo_view ? 0 : 180
+  const icon = logo_scroll.children[0]
+  icon.style.transform = `rotate(${icon_rotation}deg)`
 }
 
 
 // Auto-scroll the carousel into view when the arrow is clicked
 const logo_scroll = document.getElementById('logo-view-scroll')
-logo_scroll.onclick = () => scroll_to_view(carousel_view)
+logo_scroll.onclick = () => scroll_to_view(most_visible_view === carousel_view ? logo_view : carousel_view)
 
 
 
