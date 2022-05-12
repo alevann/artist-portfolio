@@ -8,12 +8,28 @@
 #carousel {
   display: flex;
   flex-flow: row nowrap;
-  transition: transform 1.5s ease 0s;
 }
 
-@media screen and (max-width: 900px) {
+/*
+ * On destop the caoursel will only translate
+ * by clicking on buttons so always animate
+ */
+@media screen and (min-width: 900px) {
   #carousel {
-    transition: transform 1s ease-in 0s;
+    transition: transform 1.5s ease 0s;
+  }
+}
+
+/*
+ * On mobile devices the carousel will translate
+ * when adjusting itself to center an image and 
+ * when the user is touching the screen and moving
+ *
+ * Only the first case should be animated
+ */
+@media screen and (max-width: 900px) {
+  #carousel.adjusting {
+    transition: transform .5s ease-in 0s;
   }
 }
 

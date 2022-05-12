@@ -36,6 +36,7 @@ function select(index) {
 
   // Add highlight to newly selected link and move the carousel
   links[selected].classList.add('selected')
+  carousel.classList.add('adjusting')
   carousel.style.transform = `translateX(-${selected * 100}%)`
 
   // Hide/show the next/prev arrows
@@ -92,6 +93,26 @@ carousel.addEventListener('touchstart', function (e) {
   start_y = touch.screenY
 }, { passive: true })
 
+carousel.addEventListener('touchmove', function (e) {
+  const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent
+  const touch = evt.touches[0] || evt.changedTouches[0]
+
+  const y_diff = start_y - touch.screenY
+  const x_diff = start_x - touch.screenX
+
+  // Threshold in px that determines whether a swipe is 
+  // considered to go up or not
+  const y_treshold = 200
+  if (Math.abs(y_diff) > y_treshold) {
+    return
+  }
+
+  // Make sure this translation is not being animated
+  // this interaction needs instant feedback
+  carousel.classList.remove('adjusting')
+  carousel.style.transform = `translateX(calc(-${selected * 100}% - ${x_diff}px))`
+}, { passive: true })
+
 carousel.addEventListener('touchend', function (e) {
   const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent
   const touch = evt.touches[0] || evt.changedTouches[0]
@@ -99,15 +120,16 @@ carousel.addEventListener('touchend', function (e) {
   const y_diff = start_y - touch.screenY
   const x_diff = start_x - touch.screenX
 
-  // Ignore vertical swipes
+  // Ignore vertical swipes and nullify
+  // any changes made by the touchmove listener
   if (Math.abs(x_diff) < Math.abs(y_diff)) {
-    return
+    return select(selected)
   }
 
   // Smallest distance (in px) a swipe must be to be proccessed
-  const swipe_threshold = 100
+  const swipe_threshold = carousel.clientWidth / 4
   if (Math.abs(x_diff) < swipe_threshold) {
-    return
+    return select(selected)  // nullify the effect of the swipes
   }
 
   // Consume the event
@@ -121,6 +143,13 @@ carousel.addEventListener('touchend', function (e) {
   // Swipe right
   if (x_diff > 0 && selected < images.length - 1) {
     return select(selected+1)
+  }
+
+  // Correct the offset that was applied by the touchmove listener
+  // when at a limit
+  if (x_diff < 0 && selected === 0 ||
+      x_diff > 0 && selected === images.length - 1) {
+    return select(selected)
   }
 })
 
