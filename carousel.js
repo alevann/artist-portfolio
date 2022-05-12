@@ -27,8 +27,9 @@ let selected = 0
  * and updates the links to highlight the correct one
  * 
  * @param {number} index the index of the image to select
+ * @param {number} duration the duration of the animation in milliseconds
  */
-function select(index) {
+function select(index, duration = 500) {
   // Remove highlight from current link
   links[selected].classList.remove('selected')
   
@@ -36,7 +37,7 @@ function select(index) {
 
   // Add highlight to newly selected link and move the carousel
   links[selected].classList.add('selected')
-  carousel.classList.add('adjusting')
+  carousel.style.transition = `transform ${duration}ms ease-in 0s`
   carousel.style.transform = `translateX(-${selected * 100}%)`
 
   // Hide/show the next/prev arrows
@@ -84,6 +85,7 @@ for (const image of images) {
 
 let start_x = 0
 let start_y = 0
+let start_t = 0
 
 carousel.addEventListener('touchstart', function (e) {
   const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent
@@ -91,6 +93,7 @@ carousel.addEventListener('touchstart', function (e) {
 
   start_x = touch.screenX
   start_y = touch.screenY
+  start_t = new Date()
 }, { passive: true })
 
 carousel.addEventListener('touchmove', function (e) {
@@ -109,7 +112,7 @@ carousel.addEventListener('touchmove', function (e) {
 
   // Make sure this translation is not being animated
   // this interaction needs instant feedback
-  carousel.classList.remove('adjusting')
+  carousel.style.transition = `transform 0s ease-in 0s`
   carousel.style.transform = `translateX(calc(-${selected * 100}% - ${x_diff}px))`
 }, { passive: true })
 
@@ -120,16 +123,21 @@ carousel.addEventListener('touchend', function (e) {
   const y_diff = start_y - touch.screenY
   const x_diff = start_x - touch.screenX
 
+  const dl = window.innerWidth - Math.abs(x_diff)   // Distance left to travel
+  const ts = new Date() - start_t                   // Total duration of the swipe
+  const vs = Math.abs(x_diff) / ts                  // Velocity of the swipe
+  const tt = Math.min(dl / vs, 350)                 // Time (ms) it should take to finish the action maintaining a constant velocity equal to that of the swipe
+
   // Ignore vertical swipes and nullify
   // any changes made by the touchmove listener
   if (Math.abs(x_diff) < Math.abs(y_diff)) {
-    return select(selected)
+    return select(selected, tt)
   }
 
   // Smallest distance (in px) a swipe must be to be proccessed
   const swipe_threshold = carousel.clientWidth / 4
   if (Math.abs(x_diff) < swipe_threshold) {
-    return select(selected)  // nullify the effect of the swipes
+    return select(selected, tt)  // nullify the effect of the swipes
   }
 
   // Consume the event
@@ -138,18 +146,18 @@ carousel.addEventListener('touchend', function (e) {
 
   // Swipe left
   if (x_diff < 0 && selected > 0) {
-    return select(selected-1)
+    return select(selected-1, tt)
   }
   // Swipe right
   if (x_diff > 0 && selected < images.length - 1) {
-    return select(selected+1)
+    return select(selected+1, tt)
   }
 
   // Correct the offset that was applied by the touchmove listener
   // when at a limit
   if (x_diff < 0 && selected === 0 ||
       x_diff > 0 && selected === images.length - 1) {
-    return select(selected)
+    return select(selected, tt)
   }
 })
 
