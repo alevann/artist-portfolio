@@ -127,11 +127,12 @@
   bottom: 0;
   width: 100%;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: center;
   margin: 2em;
   margin-left: 0 !important;
   gap: 1em;
+  max-height: 20%;
 }
 
 .carousel-nav-link {
